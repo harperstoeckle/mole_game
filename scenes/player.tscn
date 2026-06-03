@@ -101,7 +101,7 @@ fall_accel = 7000.0
 floor_walk_speed = 500.0
 floor_walk_accel = 7000.0
 air_strafe_speed = 500.0
-air_strafe_accel = 7000.0
+air_strafe_accel = 4000.0
 floor_friction = 0.95
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1981543053]
