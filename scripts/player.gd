@@ -18,11 +18,17 @@ extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
+var _has_jumped_in_air := false
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
-		if is_on_floor():
+		if is_on_floor() or not _has_jumped_in_air:
+			animation_player.stop()
 			animation_player.play("jump")
 			velocity.y = -jump_speed
+			if not is_on_floor():
+				_has_jumped_in_air = true
 
 
 func _physics_process(delta: float) -> void:
@@ -31,6 +37,8 @@ func _physics_process(delta: float) -> void:
 		if fall_accel_curve:
 			accel_factor = fall_accel_curve.sample_baked(velocity.y)
 		velocity.y += accel_factor * fall_accel * delta
+	else:
+		_has_jumped_in_air = false
 
 	var target_x_speed: float = Input.get_axis("left", "right") * (floor_walk_speed if is_on_floor() else air_strafe_speed)
 	var x_accel: float = floor_walk_accel if is_on_floor() else air_strafe_accel
