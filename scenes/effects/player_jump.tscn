@@ -25,6 +25,7 @@ scale_curve = SubResource("CurveTexture_mfur7")
 [node name="PlayerJump" type="Node2D" unique_id=499459980]
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=484731697]
+modulate = Color(0.4136, 0.42064, 0.44, 1)
 emitting = false
 lifetime = 0.4
 one_shot = true
