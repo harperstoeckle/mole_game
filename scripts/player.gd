@@ -46,4 +46,8 @@ func _physics_process(delta: float) -> void:
 	velocity.x = move_toward(velocity.x, target_x_speed, x_accel * delta)
 	velocity.x -= velocity.x * floor_friction * delta
 
+	var was_on_floor := is_on_floor()
 	move_and_slide()
+	if not was_on_floor and is_on_floor():
+		animation_player.stop()
+		animation_player.play("land")
