@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://62lhxp4g8tfo"]
+
+[ext_resource type="Script" uid="uid://hs3yj67cp7ao" path="res://scripts/on_ready_gpu_particles_2d.gd" id="1_yvxfg"]
+
+[sub_resource type="Curve" id="Curve_y31sn"]
+_data = [Vector2(0, 0.3825), 0.0, 12.617202, 0, 0, Vector2(0.13464338, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_r8lej"]
+curve = SubResource("Curve_y31sn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pw14g"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 20, 1)
+spread = 65.138
+initial_velocity_min = 124.14
+initial_velocity_max = 311.72998
+angular_velocity_min = -155.92001
+angular_velocity_max = 120.16998
+gravity = Vector3(0, 0, 0)
+damping_min = 94.483
+damping_max = 97.65501
+scale_min = 11.82
+scale_max = 18.63
+scale_curve = SubResource("CurveTexture_r8lej")
+
+[node name="PlayerDig" type="Node2D" unique_id=362380085]
+
+[node name="OnReadyGPUParticles2D" type="GPUParticles2D" parent="." unique_id=1874582735]
+modulate = Color(0.4136, 0.42064, 0.44, 1)
+emitting = false
+amount = 16
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.7
+process_material = SubResource("ParticleProcessMaterial_pw14g")
+script = ExtResource("1_yvxfg")
+metadata/_custom_type_script = "uid://hs3yj67cp7ao"

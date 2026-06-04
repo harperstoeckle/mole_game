@@ -37,6 +37,9 @@ func _unhandled_input(event: InputEvent) -> void:
 				_has_jumped_in_air = true
 	elif event.is_action_released("jump"):
 		stop_holding_jump()
+	elif event.is_action_pressed("ui_down"):
+		animation_player.stop()
+		animation_player.play("enter_ground")
 
 
 func _physics_process(delta: float) -> void:
