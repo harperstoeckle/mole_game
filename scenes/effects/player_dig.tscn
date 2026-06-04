@@ -29,10 +29,8 @@ scale_curve = SubResource("CurveTexture_r8lej")
 
 [node name="OnReadyGPUParticles2D" type="GPUParticles2D" parent="." unique_id=1874582735]
 modulate = Color(0.4136, 0.42064, 0.44, 1)
-emitting = false
 amount = 16
 lifetime = 0.6
-one_shot = true
 explosiveness = 0.7
 process_material = SubResource("ParticleProcessMaterial_pw14g")
 script = ExtResource("1_yvxfg")
