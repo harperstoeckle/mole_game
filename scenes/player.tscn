@@ -98,6 +98,7 @@ _data = {
 script = ExtResource("1_3vyb7")
 fall_accel_curve = SubResource("Curve_3vyb7")
 fall_accel = 7000.0
+jump_speed = 750.0
 floor_walk_speed = 500.0
 floor_walk_accel = 7000.0
 air_strafe_speed = 500.0
@@ -122,3 +123,10 @@ libraries/ = SubResource("AnimationLibrary_g2els")
 script = ExtResource("2_g2els")
 scene = ExtResource("3_qhqgy")
 metadata/_custom_type_script = "uid://0tlhn1hb7swc"
+
+[node name="JumpHoldTimer" type="Timer" parent="." unique_id=1682311752]
+process_callback = 0
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="JumpHoldTimer" to="." method="stop_holding_jump"]
