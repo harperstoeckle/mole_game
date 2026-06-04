@@ -44,7 +44,7 @@ func _physics_process(delta: float) -> void:
 		var accel_factor: float = 1.0
 		if fall_accel_curve:
 			accel_factor = fall_accel_curve.sample_baked(velocity.y)
-		if _is_holding_jump:
+		if _is_holding_jump and velocity.y < 0:
 			accel_factor *= jump_hold_gravity_factor
 		velocity.y += accel_factor * fall_accel * delta
 	else:
