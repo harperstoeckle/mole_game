@@ -258,7 +258,7 @@ metadata/_custom_type_script = "uid://0tlhn1hb7swc"
 [node name="DigParticles" type="GPUParticles2D" parent="." unique_id=1656011642]
 modulate = Color(0.7647059, 0.7882353, 0.7882353, 1)
 emitting = false
-amount = 20
+amount = 80
 lifetime = 0.3
 process_material = SubResource("ParticleProcessMaterial_tuyoq")
 
