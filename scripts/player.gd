@@ -24,6 +24,8 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 ## We must be moving at least this fast to enter the ground on contact.
 @export var min_speed_to_enter_ground: float = 1000
 @export var dig_speed: float = 1000
+## Maximum angle between surface normal and negative entry direction that ground can be entered.
+@export_range(0, 360, 0.1, "radians_as_degrees") var max_dig_angle: float = PI / 4
 
 @export_group("dash")
 @export var dash_speed: float = 1600
@@ -99,13 +101,15 @@ func _physics_process(delta: float) -> void:
 			# Reflect when colliding while underground.
 			velocity = prev_velocity.bounce(c.get_normal())
 		else:
-			if prev_velocity.length() >= min_speed_to_enter_ground:
-				# Don't enter ground if it would be collided immediately.
-				if PhysicsServer2D.body_get_collision_layer(c.get_collider_rid()) & 0b10 == 0:
-					dig_effect_spawner.global_position = c.get_position()
-					dig_effect_spawner.global_rotation = c.get_normal().angle()
-					velocity = prev_velocity.normalized() * dig_speed
-					enter_ground()
+			# Only enter the ground if we are moving fast enough, we are colliding with non-reflective ground,
+			# and our angle of entry isn't too shallow.
+			if prev_velocity.length() >= min_speed_to_enter_ground \
+					and PhysicsServer2D.body_get_collision_layer(c.get_collider_rid()) & 0b10 == 0 \
+					and abs(c.get_normal().angle_to(-prev_velocity)) <= max_dig_angle:
+				dig_effect_spawner.global_position = c.get_position()
+				dig_effect_spawner.global_rotation = c.get_normal().angle()
+				velocity = prev_velocity.normalized() * dig_speed
+				enter_ground()
 
 func stop_holding_jump() -> void:
 	_is_holding_jump = false
