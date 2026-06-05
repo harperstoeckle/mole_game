@@ -33,6 +33,8 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 @onready var jump_hold_timer: Timer = $JumpHoldTimer
 @onready var leave_ground_detection_area: Area2D = $LeaveGroundDetectionArea
 @onready var dig_effect_spawner: EffectSpawner = $DigEffectSpawner
+@onready var out_of_ground_collision_shape: CollisionShape2D = $OutOfGroundCollisionShape
+@onready var in_ground_collision_shape: CollisionShape2D = $InGroundCollisionShape
 
 
 var _has_jumped_in_air := false
@@ -91,13 +93,17 @@ func _physics_process(delta: float) -> void:
 		animation_player.stop()
 		animation_player.play("land")
 
-	if not _is_in_ground:
-		var c := get_last_slide_collision()
-		if c and prev_velocity.length() >= min_speed_to_enter_ground:
-			dig_effect_spawner.global_position = c.get_position()
-			dig_effect_spawner.global_rotation = c.get_normal().angle()
-			velocity = prev_velocity.normalized() * dig_speed
-			enter_ground()
+	var c := get_last_slide_collision()
+	if c:
+		if _is_in_ground:
+			# Reflect when colliding while underground.
+			velocity = prev_velocity.bounce(c.get_normal())
+		else:
+			if prev_velocity.length() >= min_speed_to_enter_ground:
+				dig_effect_spawner.global_position = c.get_position()
+				dig_effect_spawner.global_rotation = c.get_normal().angle()
+				velocity = prev_velocity.normalized() * dig_speed
+				enter_ground()
 
 func stop_holding_jump() -> void:
 	_is_holding_jump = false
@@ -106,10 +112,12 @@ func enter_ground() -> void:
 	animation_player.stop()
 	animation_player.play("enter_ground")
 	collision_mask = IN_GROUND_COLLISION_MASK
+	out_of_ground_collision_shape.disabled = true
 	_is_in_ground = true
 
 func leave_ground() -> void:
 	animation_player.stop()
 	animation_player.play("leave_ground")
 	collision_mask = OUT_OF_GROUND_COLLISION_MASK
+	out_of_ground_collision_shape.disabled = false
 	_is_in_ground = false
