@@ -13,6 +13,9 @@ point_count = 3
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
 size = Vector2(40, 64)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_dqkch"]
+radius = 12.369317
+
 [sub_resource type="Animation" id="Animation_u8vuu"]
 length = 0.001
 tracks/0/type = "value"
@@ -26,6 +29,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DigParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_dqkch"]
@@ -56,6 +71,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DigParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_3vyb7"]
@@ -118,15 +145,71 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_qlg0r"]
+resource_name = "leave_ground"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DigParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g2els"]
 _data = {
 &"RESET": SubResource("Animation_u8vuu"),
 &"enter_ground": SubResource("Animation_dqkch"),
 &"jump": SubResource("Animation_3vyb7"),
-&"land": SubResource("Animation_qhqgy")
+&"land": SubResource("Animation_qhqgy"),
+&"leave_ground": SubResource("Animation_qlg0r")
 }
 
+[sub_resource type="Curve" id="Curve_dqkch"]
+_data = [Vector2(0, 0.3825), 0.0, 12.617202, 0, 0, Vector2(0.13464338, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qlg0r"]
+curve = SubResource("Curve_dqkch")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tuyoq"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(20, 20, 1)
+spread = 180.0
+initial_velocity_min = 22.07
+initial_velocity_max = 56.57
+angular_velocity_min = -155.92001
+angular_velocity_max = 120.16998
+gravity = Vector3(0, 0, 0)
+damping_min = 94.483
+damping_max = 97.65501
+scale_min = 6.2999997
+scale_max = 13.11
+scale_curve = SubResource("CurveTexture_qlg0r")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
+size = Vector2(44, 69)
+
 [node name="Player" type="CharacterBody2D" unique_id=1467826575]
+collision_layer = 0
 script = ExtResource("1_3vyb7")
 fall_accel_curve = SubResource("Curve_3vyb7")
 fall_accel = 6000.0
@@ -139,20 +222,24 @@ air_strafe_accel = 4000.0
 floor_friction = 0.95
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1981543053]
-position = Vector2(0, -32)
 shape = SubResource("RectangleShape2D_u8vuu")
+
+[node name="InGroundCollisionShape" type="CollisionShape2D" parent="." unique_id=450525320]
+shape = SubResource("CircleShape2D_dqkch")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1982897312]
 offset_left = -20.0
-offset_top = -64.0
+offset_top = -32.0
 offset_right = 20.0
-pivot_offset_ratio = Vector2(0.5, 1)
-color = Color(0.7663, 0.788815, 0.79, 1)
+offset_bottom = 32.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+color = Color(0.7647059, 0.7882353, 0.7882353, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=137727513]
 libraries/ = SubResource("AnimationLibrary_g2els")
 
 [node name="EffectSpawner" type="Node2D" parent="." unique_id=1272859641]
+position = Vector2(0, 32)
 script = ExtResource("2_g2els")
 scene = ExtResource("3_qhqgy")
 metadata/_custom_type_script = "uid://0tlhn1hb7swc"
@@ -167,5 +254,18 @@ rotation = -1.5707964
 script = ExtResource("2_g2els")
 scene = ExtResource("4_dqkch")
 metadata/_custom_type_script = "uid://0tlhn1hb7swc"
+
+[node name="DigParticles" type="GPUParticles2D" parent="." unique_id=1656011642]
+modulate = Color(0.7647059, 0.7882353, 0.7882353, 1)
+emitting = false
+amount = 20
+lifetime = 0.3
+process_material = SubResource("ParticleProcessMaterial_tuyoq")
+
+[node name="LeaveGroundDetectionArea" type="Area2D" parent="." unique_id=1440173658]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeaveGroundDetectionArea" unique_id=1119500010]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_dqkch")
 
 [connection signal="timeout" from="JumpHoldTimer" to="." method="stop_holding_jump"]
