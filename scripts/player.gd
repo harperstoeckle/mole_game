@@ -25,6 +25,9 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 @export var min_speed_to_enter_ground: float = 1000
 @export var dig_speed: float = 1000
 
+@export_group("dash")
+@export var dash_speed: float = 1600
+
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var jump_hold_timer: Timer = $JumpHoldTimer
@@ -35,6 +38,7 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 var _has_jumped_in_air := false
 var _is_holding_jump := false
 var _is_in_ground := false
+var _facing_direction := 1.0
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -51,6 +55,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		stop_holding_jump()
 	elif event.is_action_pressed("ui_down"):
 		enter_ground()
+	elif event.is_action_pressed("dash"):
+		velocity = Vector2.RIGHT * _facing_direction * dash_speed
 
 
 func _physics_process(delta: float) -> void:
@@ -71,6 +77,9 @@ func _physics_process(delta: float) -> void:
 
 		var target_x_speed: float = Input.get_axis("left", "right") * (floor_walk_speed if is_on_floor() else air_strafe_speed)
 		var x_accel: float = floor_walk_accel if is_on_floor() else air_strafe_accel
+
+		if not is_zero_approx(target_x_speed):
+			_facing_direction = sign(target_x_speed)
 
 		velocity.x = move_toward(velocity.x, target_x_speed, x_accel * delta)
 		velocity.x -= velocity.x * floor_friction * delta
