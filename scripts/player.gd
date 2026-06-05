@@ -100,10 +100,12 @@ func _physics_process(delta: float) -> void:
 			velocity = prev_velocity.bounce(c.get_normal())
 		else:
 			if prev_velocity.length() >= min_speed_to_enter_ground:
-				dig_effect_spawner.global_position = c.get_position()
-				dig_effect_spawner.global_rotation = c.get_normal().angle()
-				velocity = prev_velocity.normalized() * dig_speed
-				enter_ground()
+				# Don't enter ground if it would be collided immediately.
+				if PhysicsServer2D.body_get_collision_layer(c.get_collider_rid()) & 0b10 == 0:
+					dig_effect_spawner.global_position = c.get_position()
+					dig_effect_spawner.global_rotation = c.get_normal().angle()
+					velocity = prev_velocity.normalized() * dig_speed
+					enter_ground()
 
 func stop_holding_jump() -> void:
 	_is_holding_jump = false
