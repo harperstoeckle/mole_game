@@ -253,6 +253,11 @@ process_callback = 0
 wait_time = 0.3
 one_shot = true
 
+[node name="CoyoteTimer" type="Timer" parent="." unique_id=894513003]
+process_callback = 0
+wait_time = 0.08
+one_shot = true
+
 [node name="DigEffectSpawner" type="Node2D" parent="." unique_id=474822473]
 rotation = -1.5707964
 script = ExtResource("2_g2els")

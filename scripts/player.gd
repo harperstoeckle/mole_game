@@ -38,6 +38,7 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 @onready var dig_effect_spawner: EffectSpawner = $DigEffectSpawner
 @onready var out_of_ground_collision_shape: CollisionShape2D = $OutOfGroundCollisionShape
 @onready var in_ground_collision_shape: CollisionShape2D = $InGroundCollisionShape
+@onready var coyote_timer: Timer = $CoyoteTimer
 
 
 var _has_jumped_in_air := false
@@ -48,13 +49,13 @@ var _facing_direction := 1.0
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
-		if not _is_in_ground and (is_on_floor() or allow_double_jump and not _has_jumped_in_air):
+		if not _is_in_ground and (is_on_floor() or has_coyote_time() or allow_double_jump and not _has_jumped_in_air):
 			animation_player.stop()
 			animation_player.play("jump")
 			velocity.y = -jump_speed
 			_is_holding_jump = true
 			jump_hold_timer.start()
-			if not is_on_floor():
+			if not is_on_floor() and not has_coyote_time():
 				_has_jumped_in_air = true
 	elif event.is_action_released("jump"):
 		stop_holding_jump()
@@ -96,6 +97,10 @@ func _physics_process(delta: float) -> void:
 		animation_player.stop()
 		animation_player.play("land")
 
+	# Start coyote time when leaving the ground by moving.
+	if was_on_floor and not is_on_floor() and not _is_holding_jump:
+		coyote_timer.start()
+
 	var c := get_last_slide_collision()
 	if c:
 		if _is_in_ground:
@@ -128,3 +133,6 @@ func leave_ground() -> void:
 	collision_mask = OUT_OF_GROUND_COLLISION_MASK
 	out_of_ground_collision_shape.disabled = false
 	_is_in_ground = false
+
+func has_coyote_time() -> bool:
+	return coyote_timer.time_left > 0
