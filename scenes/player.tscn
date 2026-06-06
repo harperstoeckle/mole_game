@@ -221,6 +221,7 @@ air_strafe_speed = 500.0
 air_strafe_accel = 4000.0
 floor_friction = 0.95
 min_speed_to_enter_ground = 1500.0
+dig_speed = 1400.0
 dash_speed = 2000.0
 
 [node name="OutOfGroundCollisionShape" type="CollisionShape2D" parent="." unique_id=1981543053]
@@ -265,6 +266,8 @@ lifetime = 0.3
 process_material = SubResource("ParticleProcessMaterial_tuyoq")
 
 [node name="LeaveGroundDetectionArea" type="Area2D" parent="." unique_id=1440173658]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeaveGroundDetectionArea" unique_id=1119500010]
 position = Vector2(0, -0.5)

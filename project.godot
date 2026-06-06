@@ -50,6 +50,12 @@ dash={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="ground"
+2d_physics/layer_2="dig_bounce"
+2d_physics/layer_3="no_exit"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
