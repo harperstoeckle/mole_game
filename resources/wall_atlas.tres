@@ -3,7 +3,7 @@
 [sub_resource type="Gradient" id="Gradient_e4ujx"]
 interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.49242425)
-colors = PackedColorArray(0.4136, 0.42064, 0.44, 1, 1, 1, 1, 1)
+colors = PackedColorArray(0.437, 0.44045, 0.46, 1, 0.6336, 0.65384007, 0.66, 1)
 
 [resource]
 gradient = SubResource("Gradient_e4ujx")
