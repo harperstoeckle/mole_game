@@ -108,7 +108,7 @@ func _physics_process(delta: float) -> void:
 					and abs(c.get_normal().angle_to(-prev_velocity)) <= max_dig_angle:
 				dig_effect_spawner.global_position = c.get_position()
 				dig_effect_spawner.global_rotation = c.get_normal().angle()
-				velocity = prev_velocity.normalized() * dig_speed
+				velocity = -c.get_normal() * dig_speed
 				enter_ground()
 
 func stop_holding_jump() -> void:
