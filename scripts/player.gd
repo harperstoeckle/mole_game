@@ -7,6 +7,7 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 
 ## Maps the current velocity to the acceleration of gravity.
 @export_group("jump")
+@export var allow_double_jump: bool = true
 @export var fall_accel_curve: Curve
 @export var fall_accel: float = 1000
 @export var jump_speed: float = 1000
@@ -47,7 +48,7 @@ var _facing_direction := 1.0
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
-		if not _is_in_ground and (is_on_floor() or not _has_jumped_in_air):
+		if not _is_in_ground and (is_on_floor() or allow_double_jump and not _has_jumped_in_air):
 			animation_player.stop()
 			animation_player.play("jump")
 			velocity.y = -jump_speed
