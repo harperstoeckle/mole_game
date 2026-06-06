@@ -11,7 +11,7 @@ _data = [Vector2(-1000, 0.6462718), 0.0, 0.0, 0, 0, Vector2(5.0167236, 0.4742934
 point_count = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
-size = Vector2(40, 64)
+size = Vector2(38, 60)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dqkch"]
 radius = 12.369317
@@ -206,11 +206,12 @@ scale_max = 13.11
 scale_curve = SubResource("CurveTexture_qlg0r")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
-size = Vector2(44, 69)
+size = Vector2(40, 62)
 
 [node name="Player" type="CharacterBody2D" unique_id=1467826575]
 collision_layer = 0
 script = ExtResource("1_3vyb7")
+allow_double_jump = false
 fall_accel_curve = SubResource("Curve_3vyb7")
 fall_accel = 6000.0
 jump_speed = 600.0
@@ -231,10 +232,10 @@ shape = SubResource("RectangleShape2D_u8vuu")
 shape = SubResource("CircleShape2D_dqkch")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1982897312]
-offset_left = -20.0
-offset_top = -32.0
-offset_right = 20.0
-offset_bottom = 32.0
+offset_left = -19.0
+offset_top = -30.0
+offset_right = 19.0
+offset_bottom = 30.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 color = Color(0.7647059, 0.7882353, 0.7882353, 1)
 
@@ -268,9 +269,9 @@ process_material = SubResource("ParticleProcessMaterial_tuyoq")
 [node name="LeaveGroundDetectionArea" type="Area2D" parent="." unique_id=1440173658]
 collision_layer = 4
 collision_mask = 4
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeaveGroundDetectionArea" unique_id=1119500010]
-position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_dqkch")
 
 [connection signal="timeout" from="JumpHoldTimer" to="." method="stop_holding_jump"]
