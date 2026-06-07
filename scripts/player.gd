@@ -63,6 +63,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		enter_ground()
 	elif event.is_action_pressed("dash"):
 		velocity = Vector2.RIGHT * _facing_direction * dash_speed
+		animation_player.stop()
+		animation_player.play("dash")
 
 
 func _physics_process(delta: float) -> void:
