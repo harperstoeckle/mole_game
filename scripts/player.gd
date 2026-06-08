@@ -53,6 +53,7 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 
 var _jump_state: JumpState = JumpState.NONE
 var _has_jumped_in_air := false
+var _has_dashed_in_air := false
 var _is_in_ground := false
 var _facing_direction := 1.0
 
@@ -66,10 +67,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("ui_down"):
 		enter_ground()
 	elif event.is_action_pressed("dash"):
-		velocity = Vector2.RIGHT * _facing_direction * dash_speed
-		animation_player.stop()
-		animation_player.play("dash")
-		dash_timer.start()
+		if not _has_dashed_in_air or is_on_floor():
+			velocity = Vector2.RIGHT * _facing_direction * dash_speed
+			animation_player.stop()
+			animation_player.play("dash")
+			dash_timer.start()
+			if not is_on_floor():
+				_has_dashed_in_air = true
 
 
 func _physics_process(delta: float) -> void:
@@ -89,6 +93,7 @@ func _physics_process(delta: float) -> void:
 			velocity.y += accel_factor * fall_accel * delta
 		else:
 			_has_jumped_in_air = false
+			_has_dashed_in_air = false
 
 		var target_x_speed: float = get_target_x_speed()
 		var x_accel: float = floor_walk_accel if is_on_floor() else air_strafe_accel
