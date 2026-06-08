@@ -298,6 +298,11 @@ process_callback = 0
 wait_time = 0.08
 one_shot = true
 
+[node name="DashTimer" type="Timer" parent="." unique_id=1018165202]
+process_callback = 0
+wait_time = 0.07
+one_shot = true
+
 [node name="EffectSpawner" type="Node2D" parent="." unique_id=1272859641]
 position = Vector2(0, 32)
 script = ExtResource("2_g2els")
@@ -332,3 +337,4 @@ shape = SubResource("RectangleShape2D_dqkch")
 
 [connection signal="timeout" from="JumpHoldTimer" to="." method="stop_holding_jump"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="stop_holding_jump"]
+[connection signal="timeout" from="DashTimer" to="." method="stop_dashing"]

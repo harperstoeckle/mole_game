@@ -48,6 +48,7 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 @onready var in_ground_collision_shape: CollisionShape2D = $InGroundCollisionShape
 @onready var coyote_timer: Timer = $CoyoteTimer
 @onready var jump_buffer_timer: Timer = $JumpBufferTimer
+@onready var dash_timer: Timer = $DashTimer
 
 
 var _jump_state: JumpState = JumpState.NONE
@@ -68,6 +69,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		velocity = Vector2.RIGHT * _facing_direction * dash_speed
 		animation_player.stop()
 		animation_player.play("dash")
+		dash_timer.start()
 
 
 func _physics_process(delta: float) -> void:
@@ -77,7 +79,7 @@ func _physics_process(delta: float) -> void:
 		# Do a jump right when leaving the ground if we were buffering one.
 		try_jump()
 
-	if not _is_in_ground:
+	if not _is_in_ground and not is_dashing():
 		if not is_on_floor():
 			var accel_factor: float = 1.0
 			if fall_accel_curve:
@@ -88,7 +90,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			_has_jumped_in_air = false
 
-		var target_x_speed: float = Input.get_axis("left", "right") * (floor_walk_speed if is_on_floor() else air_strafe_speed)
+		var target_x_speed: float = get_target_x_speed()
 		var x_accel: float = floor_walk_accel if is_on_floor() else air_strafe_accel
 
 		if not is_zero_approx(target_x_speed):
@@ -122,6 +124,7 @@ func _physics_process(delta: float) -> void:
 					and abs(c.get_normal().angle_to(-prev_velocity)) <= max_dig_angle:
 				dig_effect_spawner.global_position = c.get_position()
 				dig_effect_spawner.global_rotation = c.get_normal().angle()
+				stop_dashing()
 				velocity = -c.get_normal() * dig_speed
 				enter_ground()
 
@@ -150,9 +153,18 @@ func leave_ground() -> void:
 	collision_mask = OUT_OF_GROUND_COLLISION_MASK
 	out_of_ground_collision_shape.disabled = false
 	_is_in_ground = false
+	# When exiting the ground horizontally, treat it like an extended dash. Vertically, allow it to give the player some speed.
+	velocity = Vector2(get_target_x_speed(), velocity.y)
 
 func has_coyote_time() -> bool:
 	return coyote_timer.time_left > 0
+
+func is_dashing() -> bool:
+	return dash_timer.time_left > 0
+
+func stop_dashing() -> void:
+	dash_timer.stop()
+	velocity = Vector2(get_target_x_speed(), 0)
 
 # Jump if the situation allows for it and a jump is being buffered. Return true if the jump occurred.
 func try_jump() -> bool:
@@ -167,3 +179,7 @@ func try_jump() -> bool:
 			_has_jumped_in_air = true
 		return true
 	return false
+
+# Get player-intended x velocity based on held movement keys.
+func get_target_x_speed() -> float:
+	return Input.get_axis("left", "right") * (floor_walk_speed if is_on_floor() else air_strafe_speed)
