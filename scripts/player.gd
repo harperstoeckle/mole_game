@@ -1,6 +1,14 @@
 extends CharacterBody2D
 
 
+enum JumpState
+{
+	NONE, # Not doing any jumping.
+	BUFFERING, # Holding the jump button, but has not jumped yet. There is a small window after first pressing down the button that a jump can occur.
+	HOLDING, # Holding the jump button after the jump has started. Holding longer will result in a higher jump.
+}
+
+
 const OUT_OF_GROUND_COLLISION_MASK: int = 0b01
 const IN_GROUND_COLLISION_MASK: int = 0b10
 
@@ -39,24 +47,19 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 @onready var out_of_ground_collision_shape: CollisionShape2D = $OutOfGroundCollisionShape
 @onready var in_ground_collision_shape: CollisionShape2D = $InGroundCollisionShape
 @onready var coyote_timer: Timer = $CoyoteTimer
+@onready var jump_buffer_timer: Timer = $JumpBufferTimer
 
 
+var _jump_state: JumpState = JumpState.NONE
 var _has_jumped_in_air := false
-var _is_holding_jump := false
 var _is_in_ground := false
 var _facing_direction := 1.0
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
-		if not _is_in_ground and (is_on_floor() or has_coyote_time() or allow_double_jump and not _has_jumped_in_air):
-			animation_player.stop()
-			animation_player.play("jump")
-			velocity.y = -jump_speed
-			_is_holding_jump = true
-			jump_hold_timer.start()
-			if not is_on_floor() and not has_coyote_time():
-				_has_jumped_in_air = true
+		start_holding_jump()
+		try_jump()
 	elif event.is_action_released("jump"):
 		stop_holding_jump()
 	elif event.is_action_pressed("ui_down"):
@@ -71,13 +74,15 @@ func _physics_process(delta: float) -> void:
 	# Leave the ground if there's enough room (i.e., we're not overlapping with any ground).
 	if _is_in_ground and not leave_ground_detection_area.get_overlapping_bodies():
 		leave_ground()
+		# Do a jump right when leaving the ground if we were buffering one.
+		try_jump()
 
 	if not _is_in_ground:
 		if not is_on_floor():
 			var accel_factor: float = 1.0
 			if fall_accel_curve:
 				accel_factor = fall_accel_curve.sample_baked(velocity.y)
-			if _is_holding_jump and velocity.y < 0:
+			if _jump_state == JumpState.HOLDING and velocity.y < 0:
 				accel_factor *= jump_hold_gravity_factor
 			velocity.y += accel_factor * fall_accel * delta
 		else:
@@ -96,11 +101,12 @@ func _physics_process(delta: float) -> void:
 	var prev_velocity := velocity
 	move_and_slide()
 	if not _is_in_ground and not was_on_floor and is_on_floor():
-		animation_player.stop()
-		animation_player.play("land")
+		if not try_jump():
+			animation_player.stop()
+			animation_player.play("land")
 
 	# Start coyote time when leaving the ground by moving.
-	if was_on_floor and not is_on_floor() and not _is_holding_jump:
+	if was_on_floor and not is_on_floor() and _jump_state != JumpState.HOLDING:
 		coyote_timer.start()
 
 	var c := get_last_slide_collision()
@@ -119,8 +125,15 @@ func _physics_process(delta: float) -> void:
 				velocity = -c.get_normal() * dig_speed
 				enter_ground()
 
+# When the player starts holding the jump button (this starts buffering a jump).
+func start_holding_jump() -> void:
+	jump_buffer_timer.start()
+	_jump_state = JumpState.BUFFERING
+
 func stop_holding_jump() -> void:
-	_is_holding_jump = false
+	jump_buffer_timer.stop()
+	jump_hold_timer.stop()
+	_jump_state = JumpState.NONE
 
 func enter_ground() -> void:
 	animation_player.stop()
@@ -140,3 +153,17 @@ func leave_ground() -> void:
 
 func has_coyote_time() -> bool:
 	return coyote_timer.time_left > 0
+
+# Jump if the situation allows for it and a jump is being buffered. Return true if the jump occurred.
+func try_jump() -> bool:
+	if _jump_state == JumpState.BUFFERING and not _is_in_ground and (is_on_floor() or has_coyote_time() or allow_double_jump and not _has_jumped_in_air):
+		animation_player.stop()
+		animation_player.play("jump")
+		velocity.y = -jump_speed
+		_jump_state = JumpState.HOLDING
+		jump_buffer_timer.stop()
+		jump_hold_timer.start()
+		if not is_on_floor() and not has_coyote_time():
+			_has_jumped_in_air = true
+		return true
+	return false
