@@ -132,6 +132,8 @@ func enter_ground() -> void:
 func leave_ground() -> void:
 	animation_player.stop()
 	animation_player.play("leave_ground")
+	# Allow jumping briefly after leaving the ground.
+	coyote_timer.start()
 	collision_mask = OUT_OF_GROUND_COLLISION_MASK
 	out_of_ground_collision_shape.disabled = false
 	_is_in_ground = false
