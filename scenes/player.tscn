@@ -335,6 +335,13 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeaveGroundDetectionArea" unique_id=1119500010]
 shape = SubResource("RectangleShape2D_dqkch")
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1390094399]
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.5
+drag_right_margin = 0.5
+
 [connection signal="timeout" from="JumpHoldTimer" to="." method="stop_holding_jump"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="stop_holding_jump"]
 [connection signal="timeout" from="DashTimer" to="." method="stop_dashing"]
