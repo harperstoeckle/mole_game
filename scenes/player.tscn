@@ -272,6 +272,11 @@ shape = SubResource("RectangleShape2D_u8vuu")
 [node name="InGroundCollisionShape" type="CollisionShape2D" parent="." unique_id=450525320]
 shape = SubResource("CircleShape2D_dqkch")
 
+[node name="DashEffectSpawner" type="Node2D" parent="." unique_id=742054394]
+script = ExtResource("2_g2els")
+scene = ExtResource("5_qlg0r")
+metadata/_custom_type_script = "uid://0tlhn1hb7swc"
+
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1982897312]
 offset_left = -19.0
 offset_top = -30.0
@@ -313,11 +318,6 @@ metadata/_custom_type_script = "uid://0tlhn1hb7swc"
 rotation = -1.5707964
 script = ExtResource("2_g2els")
 scene = ExtResource("4_dqkch")
-metadata/_custom_type_script = "uid://0tlhn1hb7swc"
-
-[node name="DashEffectSpawner" type="Node2D" parent="." unique_id=742054394]
-script = ExtResource("2_g2els")
-scene = ExtResource("5_qlg0r")
 metadata/_custom_type_script = "uid://0tlhn1hb7swc"
 
 [node name="DigParticles" type="GPUParticles2D" parent="." unique_id=1656011642]

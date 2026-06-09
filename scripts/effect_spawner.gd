@@ -8,17 +8,26 @@ extends Node2D
 @export var free_delay: float = 1
 
 
+# So we can continuously keep the global transform of the effects the same.
+var _effect_node_to_transform: Dictionary[Node2D, Transform2D] = {}
+
+
 func spawn() -> void:
 	if not scene: return
 
 	var node := scene.instantiate() as Node2D
 	if not node: return
 
-	# Effects don't move from their initial position in global space.
-	node.top_level = true
 	add_child(node)
-	node.global_position = global_position
-	node.global_scale = global_scale
-	node.global_rotation = global_rotation
+	_effect_node_to_transform[node] = node.global_transform
 
-	get_tree().create_timer(free_delay).timeout.connect(node.queue_free)
+	get_tree().create_timer(free_delay).timeout.connect(func() -> void:
+		node.queue_free()
+		_effect_node_to_transform.erase(node))
+
+func _process(_delta: float) -> void:
+	# We want effects to maintain their global transforms from when they were first created. We
+	# *could* do this by just setting them as top-level, but this would mess up their draw order,
+	# so we update them manually instead.
+	for node: Node2D in _effect_node_to_transform:
+		node.global_transform = _effect_node_to_transform[node]
