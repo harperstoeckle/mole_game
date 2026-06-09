@@ -49,6 +49,7 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 @onready var coyote_timer: Timer = $CoyoteTimer
 @onready var jump_buffer_timer: Timer = $JumpBufferTimer
 @onready var dash_timer: Timer = $DashTimer
+@onready var camera_2d: ShakeCamera2D = $Camera2D
 
 
 var _jump_state: JumpState = JumpState.NONE

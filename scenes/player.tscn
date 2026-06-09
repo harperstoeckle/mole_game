@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ugacar42quoq" path="res://scenes/effects/player_jump.tscn" id="3_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://62lhxp4g8tfo" path="res://scenes/effects/player_dig.tscn" id="4_dqkch"]
 [ext_resource type="PackedScene" uid="uid://6yooxpd32q5q" path="res://scenes/effects/player_dash.tscn" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://b8o0tjk6qbgwg" path="res://scripts/shake_camera_2d.gd" id="6_tuyoq"]
 
 [sub_resource type="Curve" id="Curve_3vyb7"]
 _limits = [0.0, 1.0, -1000.0, 1000.0]
@@ -341,6 +342,7 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_left_margin = 0.5
 drag_right_margin = 0.5
+script = ExtResource("6_tuyoq")
 
 [connection signal="timeout" from="JumpHoldTimer" to="." method="stop_holding_jump"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="stop_holding_jump"]
