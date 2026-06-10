@@ -4,7 +4,8 @@
 [ext_resource type="Script" uid="uid://0tlhn1hb7swc" path="res://scripts/effect_spawner.gd" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://ugacar42quoq" path="res://scenes/effects/player_jump.tscn" id="3_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://62lhxp4g8tfo" path="res://scenes/effects/player_dig.tscn" id="4_dqkch"]
-[ext_resource type="PackedScene" uid="uid://6yooxpd32q5q" path="res://scenes/effects/player_dash.tscn" id="5_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://djxfy7pp3icnx" path="res://scenes/effects/player_dash_dust.tscn" id="4_fjrip"]
+[ext_resource type="PackedScene" uid="uid://6yooxpd32q5q" path="res://scenes/effects/player_dash_trail.tscn" id="5_qlg0r"]
 [ext_resource type="Script" uid="uid://b8o0tjk6qbgwg" path="res://scripts/shake_camera_2d.gd" id="6_tuyoq"]
 
 [sub_resource type="Curve" id="Curve_3vyb7"]
@@ -95,6 +96,20 @@ tracks/2/keys = {
 "values": [{
 "args": [Vector2(2, 0), 8.0, 1.0],
 "method": &"shake_directional"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DashDustEffectSpawner")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn"
 }]
 }
 
@@ -304,6 +319,12 @@ shape = SubResource("CircleShape2D_dqkch")
 [node name="DashEffectSpawner" type="Node2D" parent="." unique_id=742054394]
 script = ExtResource("2_g2els")
 scene = ExtResource("5_qlg0r")
+metadata/_custom_type_script = "uid://0tlhn1hb7swc"
+
+[node name="DashDustEffectSpawner" type="Node2D" parent="." unique_id=481995267]
+script = ExtResource("2_g2els")
+scene = ExtResource("4_fjrip")
+retain_effect_spawn_transform = false
 metadata/_custom_type_script = "uid://0tlhn1hb7swc"
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1982897312]

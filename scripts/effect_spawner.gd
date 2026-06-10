@@ -6,6 +6,7 @@ extends Node2D
 @export var scene: PackedScene
 ## Time in seconds from spawning an effect before it is freed.
 @export var free_delay: float = 1
+@export var retain_effect_spawn_transform: bool = true
 
 
 # So we can continuously keep the global transform of the effects the same.
@@ -26,6 +27,8 @@ func spawn() -> void:
 		_effect_node_to_transform.erase(node))
 
 func _process(_delta: float) -> void:
+	if not retain_effect_spawn_transform: return
+
 	# We want effects to maintain their global transforms from when they were first created. We
 	# *could* do this by just setting them as top-level, but this would mess up their draw order,
 	# so we update them manually instead.

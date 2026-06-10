@@ -50,6 +50,7 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 @onready var jump_buffer_timer: Timer = $JumpBufferTimer
 @onready var dash_timer: Timer = $DashTimer
 @onready var camera_2d: ShakeCamera2D = $Camera2D
+@onready var dash_dust_effect_spawner: EffectSpawner = $DashDustEffectSpawner
 
 
 var _jump_state: JumpState = JumpState.NONE
@@ -70,6 +71,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("dash"):
 		if not _has_dashed_in_air or is_on_floor():
 			velocity = Vector2.RIGHT * _facing_direction * dash_speed
+			dash_dust_effect_spawner.rotation = (-velocity).angle()
 			animation_player.stop()
 			animation_player.play("dash")
 			dash_timer.start()
