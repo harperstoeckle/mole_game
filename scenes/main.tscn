@@ -1,11 +1,14 @@
 [gd_scene format=4 uid="uid://d3fdoti751ujg"]
 
 [ext_resource type="PackedScene" uid="uid://0bpyja0y2k2p" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://chx4ptdu2dkjw" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="TileSet" uid="uid://d3jakuohgew1r" path="res://resources/wall_tile_set.tres" id="2_0wfyh"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_sgp6g"]
 
 [node name="Main" type="Node2D" unique_id=1989736336]
+process_mode = 3
+script = ExtResource("1_sugp2")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=462372243]
 collision_layer = 3
@@ -20,4 +23,7 @@ tile_map_data = PackedByteArray("AAAAAAkAAAADAAAAAAABAAkAAAADAAAAAAACAAkAAAADAAA
 tile_set = ExtResource("2_0wfyh")
 
 [node name="Player" parent="." unique_id=1467826575 instance=ExtResource("1_o5qli")]
+process_mode = 1
 position = Vector2(360, 529)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=14022486]
