@@ -15,17 +15,28 @@ run/main_scene="uid://d3fdoti751ujg"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+BetterTerrain="*uid://b3ej0cxidclxk"
+
 [debug]
 
 gdscript/warnings/untyped_declaration=2
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/size/viewport_width=1024
+window/size/viewport_height=640
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
 
 [dotnet]
 
 project/assembly_name="mole_game"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg")
 
 [input]
 
@@ -68,4 +79,4 @@ pause={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
-environment/defaults/default_clear_color=Color(0.20784314, 0.21568628, 0.20392157, 1)
+environment/defaults/default_clear_color=Color(0.91764706, 0.87058824, 0.827451, 1)
