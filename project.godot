@@ -38,6 +38,11 @@ project/assembly_name="mole_game"
 
 enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg")
 
+[gui]
+
+theme/custom="uid://dv1b542yhcjo7"
+theme/custom_font="uid://b041fdedkc6s1"
+
 [input]
 
 jump={
