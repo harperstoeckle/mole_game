@@ -28,7 +28,7 @@ scale_curve = SubResource("CurveTexture_r8lej")
 [node name="PlayerDig" type="Node2D" unique_id=362380085]
 
 [node name="OnReadyGPUParticles2D" type="GPUParticles2D" parent="." unique_id=1874582735]
-modulate = Color(0.4136, 0.42064, 0.44, 1)
+modulate = Color(0.2784314, 0.20784314, 0.16470589, 1)
 amount = 16
 lifetime = 0.6
 explosiveness = 0.7

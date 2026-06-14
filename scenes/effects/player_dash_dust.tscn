@@ -26,7 +26,7 @@ scale_curve = SubResource("CurveTexture_sbp42")
 [node name="PlayerDashDust" type="Node2D" unique_id=1891184447]
 
 [node name="OnReadyGPUParticles2D" type="GPUParticles2D" parent="." unique_id=928375345]
-modulate = Color(0.7647059, 0.7882353, 0.7882353, 1)
+modulate = Color(0.8392157, 0.36078432, 0.25490198, 1)
 amount = 10
 lifetime = 0.4
 explosiveness = 0.95

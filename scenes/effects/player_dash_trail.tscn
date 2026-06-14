@@ -69,7 +69,7 @@ offset_top = -30.0
 offset_right = 19.0
 offset_bottom = 30.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
-color = Color(0.7647059, 0.7882353, 0.7882353, 1)
+color = Color(0.8392157, 0.36078432, 0.25490198, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1703326392]
 libraries/ = SubResource("AnimationLibrary_icbah")
