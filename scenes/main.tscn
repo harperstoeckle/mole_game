@@ -1,29 +1,104 @@
-[gd_scene format=4 uid="uid://d3fdoti751ujg"]
+[gd_scene format=3 uid="uid://d3fdoti751ujg"]
 
-[ext_resource type="PackedScene" uid="uid://0bpyja0y2k2p" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://chx4ptdu2dkjw" path="res://scripts/main.gd" id="1_sugp2"]
-[ext_resource type="TileSet" uid="uid://d3jakuohgew1r" path="res://resources/wall_tile_set.tres" id="2_0wfyh"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_sgp6g"]
+[ext_resource type="PackedScene" uid="uid://rhievbd7swxv" path="res://levels/0.tscn" id="2_sugp2"]
+[ext_resource type="Script" uid="uid://dej0oalrx13qv" path="res://scripts/button_component.gd" id="4_jyhfs"]
 
 [node name="Main" type="Node2D" unique_id=1989736336]
 process_mode = 3
 script = ExtResource("1_sugp2")
+first_level = ExtResource("2_sugp2")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=462372243]
-collision_layer = 3
-collision_mask = 3
+[node name="LevelContainer" type="Node2D" parent="." unique_id=1368226301]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1684477412]
-position = Vector2(550, 642)
-shape = SubResource("WorldBoundaryShape2D_sgp6g")
+[node name="UI" type="CanvasLayer" parent="." unique_id=14022486]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1215131399]
-tile_map_data = PackedByteArray("AAAAAAkAAQAFAAIAAAABAAkAAQAGAAMAAAACAAkAAQAGAAMAAAADAAkAAQAGAAMAAAAEAAkAAQAGAAMAAAAFAAkAAQAGAAMAAAAGAAkAAQAGAAMAAAAHAAkAAQAGAAMAAAAIAAkAAQAGAAMAAAAJAAkAAQAGAAMAAAAKAAkAAQAGAAMAAAALAAkAAQAGAAMAAAAMAAkAAQAGAAMAAAAAAAgAAQAIAAEAAAAAAAcAAQAIAAEAAAAAAAYAAQAIAAEAAAAAAAUAAQAIAAEAAAAAAAQAAQAIAAEAAAAAAAMAAQAIAAEAAAAAAAIAAQAIAAEAAAAAAAEAAQAIAAEAAAAAAAAAAQAIAAEAAAAAAP//AQAIAAEAAAACAAMAAQACAAMAAAACAP//AQACAAMAAAABAP//AQABAAMAAAAAAP7/AQAIAAEAAAAAAP3/AQAIAAEAAAAAAPz/AQAIAAEAAAAAAPv/AQAIAAEAAAAAAPL/AQAIAAAAAAAAAPP/AQAIAAEAAAAAAPT/AQAIAAEAAAAAAPX/AQAIAAEAAAAAAPb/AQAIAAEAAAAAAPf/AQAIAAEAAAAAAPj/AQAIAAEAAAAAAPn/AQAIAAEAAAAAAPr/AQAIAAEAAAACAPv/AQACAAMAAAABAPv/AQABAAMAAAACAPf/AQACAAMAAAABAPf/AQABAAMAAAACAPP/AQACAAMAAAABAPP/AQABAAMAAAAKAAUAAQAAAAMAAAALAAUAAQABAAMAAAAMAAUAAQAIAAEAAAAMAAcAAQAIAAIAAAAMAAYAAQAFAAEAAAAMAAQAAQAIAAEAAAAMAAMAAQAIAAEAAAAMAAIAAQAIAAEAAAAMAAEAAQAIAAEAAAAMAAAAAQAIAAEAAAAMAP//AQAIAAEAAAAMAP7/AQAIAAEAAAAMAP3/AQAIAAEAAAAMAPz/AQAIAAEAAAAMAPv/AQAIAAEAAAAMAPr/AQAIAAEAAAAMAPn/AQAIAAEAAAAMAPj/AQAIAAEAAAAMAPf/AQAIAAEAAAAMAPb/AQAIAAEAAAAMAPX/AQAIAAEAAAAMAPT/AQAIAAEAAAAMAPP/AQAIAAEAAAAMAPL/AQAIAAAAAAAKAP3/AQAAAAMAAAALAP3/AQABAAMAAAALAAEAAQABAAMAAAAKAAEAAQAAAAMAAAAKAPn/AQAAAAMAAAALAPn/AQABAAMAAAALAPX/AQABAAMAAAAKAPX/AQAAAAMAAAAOAAkAAQAGAAMAAAARAAkAAQAGAAMAAAASAAkAAQAGAAMAAAAQAAkAAQAGAAMAAAAPAAkAAQAGAAMAAAANAAkAAQAGAAMAAAANAAUAAQACAAAAAAANAAYAAQAGAAMAAAANAAIAAQACAAMAAAANAP//AQACAAMAAAANAPz/AQACAAMAAAANAPn/AQACAAMAAAANAPb/AQACAAMAAAANAPP/AQACAAMAAAAUAPr/AQAIAAEAAAAUAPv/AQAIAAEAAAAUAPz/AQAIAAEAAAAUAP3/AQAIAAEAAAAUAP7/AQAIAAEAAAAUAP//AQAIAAEAAAAUAAAAAQAIAAEAAAAUAAEAAQAIAAEAAAAUAAIAAQAIAAEAAAAUAAMAAQAIAAEAAAAUAAQAAQAIAAEAAAAUAAUAAQAHAAEAAAAUAAYAAQAIAAEAAAAUAAcAAQAIAAEAAAAUAAgAAQAIAAEAAAAUAAkAAQAHAAIAAAATAAkAAQAGAAMAAAAOAAYAAQAHAAMAAAAUAPn/AQAIAAEAAAAUAPj/AQAIAAEAAAAUAPf/AQAIAAEAAAAUAPb/AQAIAAEAAAAUAPX/AQAIAAEAAAAUAPT/AQAIAAEAAAAUAPP/AQAIAAEAAAAUAPL/AQAIAAAAAAABAAcAAQABAAMAAAACAAcAAQACAAMAAAABAAMAAQABAAMAAAAQAAgAAQABAAEAAAARAAgAAQABAAEAAAASAAgAAQABAAEAAAASAAcAAQABAAEAAAATAAcAAQABAAEAAAATAAgAAQABAAEAAAATAAYAAQABAAEAAAASAAYAAQAAAAAAAAATAAUAAQAFAAMAAAAPAAgAAQAAAAAAAAAQAAcAAQAAAAAAAAARAAcAAQAIAAMAAAA=")
-tile_set = ExtResource("2_0wfyh")
+[node name="Menu" type="Control" parent="UI" unique_id=86131878]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Player" parent="." unique_id=1467826575 instance=ExtResource("1_o5qli")]
-process_mode = 1
-position = Vector2(360, 529)
+[node name="PauseOverlay" type="ColorRect" parent="UI/Menu" unique_id=322000117]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.91764706, 0.87058824, 0.827451, 0.92941177)
 
-[node name="Menu" type="CanvasLayer" parent="." unique_id=14022486]
+[node name="HBoxContainer" type="VBoxContainer" parent="UI/Menu" unique_id=383943591]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 128.0
+offset_top = -140.0
+offset_right = 300.0
+offset_bottom = 140.0
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="PlayButton" type="Label" parent="UI/Menu/HBoxContainer" unique_id=1543650865]
+layout_mode = 2
+mouse_filter = 0
+theme_type_variation = &"Label_MainMenuButton_normal"
+text = "PLAY"
+
+[node name="ButtonComponent" type="Node" parent="UI/Menu/HBoxContainer/PlayButton" unique_id=1459886119]
+script = ExtResource("4_jyhfs")
+theme_type_variation_base = "Label_MainMenuButton"
+metadata/_custom_type_script = "uid://dej0oalrx13qv"
+
+[node name="ResumeButton" type="Label" parent="UI/Menu/HBoxContainer" unique_id=1796020807]
+layout_mode = 2
+mouse_filter = 0
+theme_type_variation = &"Label_MainMenuButton_normal"
+text = "RESUME"
+
+[node name="ButtonComponent" type="Node" parent="UI/Menu/HBoxContainer/ResumeButton" unique_id=1158184877]
+script = ExtResource("4_jyhfs")
+theme_type_variation_base = "Label_MainMenuButton"
+metadata/_custom_type_script = "uid://dej0oalrx13qv"
+
+[node name="CreditsButton" type="Label" parent="UI/Menu/HBoxContainer" unique_id=948450430]
+layout_mode = 2
+mouse_filter = 0
+theme_type_variation = &"Label_MainMenuButton_normal"
+text = "CREDITS"
+
+[node name="ButtonComponent" type="Node" parent="UI/Menu/HBoxContainer/CreditsButton" unique_id=443607469]
+script = ExtResource("4_jyhfs")
+theme_type_variation_base = "Label_MainMenuButton"
+metadata/_custom_type_script = "uid://dej0oalrx13qv"
+
+[node name="QuitButton" type="Label" parent="UI/Menu/HBoxContainer" unique_id=1534503658]
+layout_mode = 2
+mouse_filter = 0
+theme_type_variation = &"Label_MainMenuButton_normal"
+text = "QUIT"
+
+[node name="ButtonComponent" type="Node" parent="UI/Menu/HBoxContainer/QuitButton" unique_id=1928014966]
+script = ExtResource("4_jyhfs")
+theme_type_variation_base = "Label_MainMenuButton"
+metadata/_custom_type_script = "uid://dej0oalrx13qv"
+
+[node name="MainMenuButton" type="Label" parent="UI/Menu/HBoxContainer" unique_id=1407958095]
+layout_mode = 2
+mouse_filter = 0
+theme_type_variation = &"Label_MainMenuButton_normal"
+text = "MAIN MENU"
+
+[node name="ButtonComponent" type="Node" parent="UI/Menu/HBoxContainer/MainMenuButton" unique_id=376563186]
+script = ExtResource("4_jyhfs")
+theme_type_variation_base = "Label_MainMenuButton"
+metadata/_custom_type_script = "uid://dej0oalrx13qv"
+
+[connection signal="pressed" from="UI/Menu/HBoxContainer/PlayButton/ButtonComponent" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="UI/Menu/HBoxContainer/ResumeButton/ButtonComponent" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="UI/Menu/HBoxContainer/QuitButton/ButtonComponent" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="UI/Menu/HBoxContainer/MainMenuButton/ButtonComponent" to="." method="_on_main_menu_button_pressed"]

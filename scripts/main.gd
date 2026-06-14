@@ -1,10 +1,66 @@
 extends Node2D
 
 
-func _unhandled_input(e: InputEvent) -> void:
-	if e.is_action_pressed("pause"):
-		get_tree().paused = !get_tree().paused
+@export var first_level: PackedScene
 
+
+@onready var _level_container: Node2D = $LevelContainer
+@onready var _menu: Control = $UI/Menu
+@onready var _play_button: Label = $UI/Menu/HBoxContainer/PlayButton
+@onready var _resume_button: Label = $UI/Menu/HBoxContainer/ResumeButton
+@onready var _quit_button: Label = $UI/Menu/HBoxContainer/QuitButton
+@onready var _main_menu_button: Label = $UI/Menu/HBoxContainer/MainMenuButton
+
+
+var _level: Node = null
+
+
+func _ready() -> void:
+	_update_game_pause()
+	_update_menu_buttons()
+
+func _unhandled_input(e: InputEvent) -> void:
+	# Don't allow toggling the menu if we're not in a level (in the main menu).
+	if e.is_action_pressed("pause") and _level:
+		_menu.visible = not _menu.visible
+		_update_game_pause()
+
+# Load a level from a `PackedScene` and play a transition animation.
+func load_level_from_packed(level_packed_scene: PackedScene) -> void:
+	if level_packed_scene: _set_level(level_packed_scene.instantiate())
+	else: _set_level(null)
+
+	_menu.visible = not _level
+	_update_menu_buttons()
+
+# Set the level immediately.
+func _set_level(level: Node) -> void:
+	for node: Node in _level_container.get_children():
+		node.queue_free()
+	_level = level
+	if _level: _level_container.add_child(_level)
 
 func _update_game_pause() -> void:
-	pass
+	get_tree().paused = _menu.visible
+
+func _update_menu_buttons() -> void:
+	var is_in_level := _level != null
+	_play_button.visible = not is_in_level
+	_resume_button.visible = is_in_level
+	_quit_button.visible = not is_in_level
+	_main_menu_button.visible = is_in_level
+
+func _on_play_button_pressed() -> void:
+	load_level_from_packed(first_level)
+	_menu.hide()
+	_update_game_pause()
+
+func _on_resume_button_pressed() -> void:
+	_menu.hide()
+	_update_game_pause()
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
+
+func _on_main_menu_button_pressed() -> void:
+	load_level_from_packed(null)
