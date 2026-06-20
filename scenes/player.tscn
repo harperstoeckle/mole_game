@@ -308,6 +308,7 @@ air_strafe_accel = 4000.0
 floor_friction = 0.95
 min_speed_to_enter_ground = 1500.0
 dig_speed = 300.0
+leave_ground_vertical_speed_multiplier = 5.5
 dash_speed = 2000.0
 
 [node name="OutOfGroundCollisionShape" type="CollisionShape2D" parent="." unique_id=1981543053]
