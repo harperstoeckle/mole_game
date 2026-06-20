@@ -22,6 +22,7 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 ## Gravity is multiplied by this when holding jump.
 @export var jump_hold_gravity_factor: float = 0.5
 
+
 @export_group("strafe")
 @export var floor_walk_speed: float = 1000
 @export var floor_walk_accel: float = 1000

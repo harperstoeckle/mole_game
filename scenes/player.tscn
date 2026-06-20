@@ -9,9 +9,9 @@
 [ext_resource type="Script" uid="uid://b8o0tjk6qbgwg" path="res://scripts/shake_camera_2d.gd" id="6_tuyoq"]
 
 [sub_resource type="Curve" id="Curve_3vyb7"]
-_limits = [0.0, 1.0, -1000.0, 1000.0]
-_data = [Vector2(-1000, 0.6462718), 0.0, 0.0, 0, 0, Vector2(5.0167236, 0.47429347), 0.0, 0.0, 0, 0, Vector2(1000, 1), 0.0, 0.0, 0, 0]
-point_count = 3
+_limits = [0.0, 1.0, -1000.0, 3000.0]
+_data = [Vector2(-1000, 0.6007038), 0.0, 0.0, 0, 0, Vector2(5.9781494, 0.3781857), 0.0, 0.0, 0, 0, Vector2(1013.58704, 1), 0.0, 0.0, 0, 0, Vector2(2193.4783, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
 size = Vector2(38, 60)
@@ -390,6 +390,7 @@ shape = SubResource("RectangleShape2D_dqkch")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1390094399]
 position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_left_margin = 0.5
