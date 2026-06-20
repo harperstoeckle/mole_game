@@ -51,6 +51,7 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 @onready var dash_timer: Timer = $DashTimer
 @onready var camera_2d: ShakeCamera2D = $Camera2D
 @onready var dash_dust_effect_spawner: EffectSpawner = $DashDustEffectSpawner
+@onready var dash_effect_spawn_timer: Timer = $DashEffectSpawnTimer
 
 
 var _jump_state: JumpState = JumpState.NONE
@@ -78,6 +79,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			if not is_on_floor():
 				_has_dashed_in_air = true
 
+func _process(_delta: float) -> void:
+	# Play the dash effect thing when moving fast enough to enter the ground.
+	dash_effect_spawn_timer.paused = velocity.length() < min_speed_to_enter_ground
+	if dash_effect_spawn_timer.is_stopped(): dash_effect_spawn_timer.start()
 
 func _physics_process(delta: float) -> void:
 	# Leave the ground if there's enough room (i.e., we're not overlapping with any ground).
