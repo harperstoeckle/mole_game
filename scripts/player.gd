@@ -137,7 +137,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			# Only enter the ground if we are moving fast enough, we are colliding with non-reflective ground,
 			# and our angle of entry isn't too shallow.
-			if prev_velocity.length() >= min_speed_to_enter_ground \
+			if prev_velocity.dot(-c.get_normal()) >= min_speed_to_enter_ground \
 					and PhysicsServer2D.body_get_collision_layer(c.get_collider_rid()) & 0b10 == 0 \
 					and abs(c.get_normal().angle_to(-prev_velocity)) <= max_dig_angle:
 				dig_effect_spawner.global_position = c.get_position()

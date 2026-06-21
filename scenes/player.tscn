@@ -390,13 +390,14 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_dqkch")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1390094399]
-position = Vector2(0, 96)
+position = Vector2(0, 112)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_left_margin = 0.1
 drag_right_margin = 0.1
+drag_bottom_margin = 0.1
 script = ExtResource("6_tuyoq")
 
 [connection signal="timeout" from="DashEffectSpawnTimer" to="DashEffectSpawner" method="spawn"]
