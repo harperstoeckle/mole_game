@@ -10,7 +10,7 @@
 
 [sub_resource type="Curve" id="Curve_3vyb7"]
 _limits = [0.0, 1.0, -1000.0, 3000.0]
-_data = [Vector2(-1000, 0.6007038), 0.0, 0.0, 0, 0, Vector2(5.9781494, 0.3781857), 0.0, 0.0, 0, 0, Vector2(1013.58704, 1), 0.0, 0.0, 0, 0, Vector2(2193.4783, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(-1000, 0.8561946), 0.0, 0.0, 0, 0, Vector2(-2.1739502, 0.4985571), 0.0, 0.0, 0, 0, Vector2(1013.58704, 1), 0.0, 0.0, 0, 0, Vector2(2193.4783, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
@@ -300,7 +300,7 @@ allow_double_jump = false
 fall_accel_curve = SubResource("Curve_3vyb7")
 fall_accel = 6000.0
 jump_speed = 600.0
-jump_hold_gravity_factor = 0.6
+jump_hold_gravity_factor = 0.2
 floor_walk_speed = 300.0
 floor_walk_accel = 7000.0
 air_strafe_speed = 300.0
@@ -318,7 +318,7 @@ shape = SubResource("RectangleShape2D_u8vuu")
 shape = SubResource("CircleShape2D_dqkch")
 
 [node name="DashEffectSpawnTimer" type="Timer" parent="." unique_id=774581544]
-wait_time = 0.009999999999999998
+wait_time = 0.00999999999999999
 
 [node name="DashEffectSpawner" type="Node2D" parent="." unique_id=742054394]
 script = ExtResource("2_g2els")
@@ -394,8 +394,8 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
-drag_left_margin = 0.5
-drag_right_margin = 0.5
+drag_left_margin = 0.1
+drag_right_margin = 0.1
 script = ExtResource("6_tuyoq")
 
 [connection signal="timeout" from="DashEffectSpawnTimer" to="DashEffectSpawner" method="spawn"]
