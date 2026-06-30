@@ -362,6 +362,11 @@ process_callback = 0
 wait_time = 0.07
 one_shot = true
 
+[node name="PostTeleportFloatTimer" type="Timer" parent="." unique_id=1030021399]
+process_callback = 0
+wait_time = 0.3
+one_shot = true
+
 [node name="EffectSpawner" type="Node2D" parent="." unique_id=1272859641]
 position = Vector2(0, 32)
 script = ExtResource("2_g2els")

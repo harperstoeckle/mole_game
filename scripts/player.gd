@@ -55,6 +55,7 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 @onready var camera_2d: ShakeCamera2D = $Camera2D
 @onready var dash_dust_effect_spawner: EffectSpawner = $DashDustEffectSpawner
 @onready var dash_effect_spawn_timer: Timer = $DashEffectSpawnTimer
+@onready var post_teleport_float_timer: Timer = $PostTeleportFloatTimer
 
 
 var _jump_state: JumpState = JumpState.NONE
@@ -83,6 +84,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				_has_dashed_in_air = true
 	elif event.is_action_pressed("teleport"):
 		global_position = get_global_mouse_position()
+		post_teleport_float_timer.start()
 
 func _process(_delta: float) -> void:
 	# Play the dash effect thing when moving fast enough to enter the ground.
@@ -103,7 +105,10 @@ func _physics_process(delta: float) -> void:
 				accel_factor = fall_accel_curve.sample_baked(velocity.y)
 			if _jump_state == JumpState.HOLDING and velocity.y < 0:
 				accel_factor *= jump_hold_gravity_factor
-			velocity.y += accel_factor * fall_accel * delta
+
+			# No falling for a short time after teleporting.
+			if post_teleport_float_timer.time_left <= 0:
+				velocity.y += accel_factor * fall_accel * delta
 		else:
 			_has_jumped_in_air = false
 			_has_dashed_in_air = false
