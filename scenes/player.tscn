@@ -544,12 +544,11 @@ max_polyphony = 4
 
 [node name="DigLoopAudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=616612711]
 stream = ExtResource("9_ur7pv")
-volume_db = -15.0
 bus = &"Sound Effects"
 
 [node name="StepAudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=1300445178]
 stream = SubResource("AudioStreamRandomizer_d2wvv")
-volume_db = -10.0
+pitch_scale = 0.5
 max_polyphony = 4
 
 [connection signal="timeout" from="DashEffectSpawnTimer" to="DashEffectSpawner" method="spawn"]
