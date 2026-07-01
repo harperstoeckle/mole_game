@@ -57,6 +57,7 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 @onready var dash_effect_spawn_timer: Timer = $DashEffectSpawnTimer
 @onready var post_teleport_float_timer: Timer = $PostTeleportFloatTimer
 @onready var dig_loop_audio_player: AudioStreamPlayer2D = $DigLoopAudioPlayer
+@onready var walk_animation_player: AnimationPlayer = $WalkAnimationPlayer
 
 
 var _jump_state: JumpState = JumpState.NONE
@@ -93,6 +94,12 @@ func _process(_delta: float) -> void:
 	if dash_effect_spawn_timer.is_stopped(): dash_effect_spawn_timer.start()
 
 func _physics_process(delta: float) -> void:
+	if not is_zero_approx(get_target_x_speed()) and is_on_floor() and not _is_in_ground and not is_dashing():
+		if not walk_animation_player.is_playing(): walk_animation_player.play("walk")
+	else:
+		if walk_animation_player.is_playing():
+			walk_animation_player.play("RESET")
+
 	# Leave the ground if there's enough room (i.e., we're not overlapping with any ground).
 	if _is_in_ground and not leave_ground_detection_area.get_overlapping_bodies():
 		leave_ground()
