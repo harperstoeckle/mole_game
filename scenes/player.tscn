@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://djxfy7pp3icnx" path="res://scenes/effects/player_dash_dust.tscn" id="4_fjrip"]
 [ext_resource type="PackedScene" uid="uid://6yooxpd32q5q" path="res://scenes/effects/player_dash_trail.tscn" id="5_qlg0r"]
 [ext_resource type="Script" uid="uid://b8o0tjk6qbgwg" path="res://scripts/shake_camera_2d.gd" id="6_tuyoq"]
+[ext_resource type="AudioStream" uid="uid://d28ca0uefaldg" path="res://audio/dash.ogg" id="8_smehm"]
+[ext_resource type="AudioStream" uid="uid://ducr5a1pl2o2o" path="res://audio/dig_loop.ogg" id="9_ur7pv"]
 
 [sub_resource type="Curve" id="Curve_3vyb7"]
 _limits = [0.0, 1.0, -1000.0, 3000.0]
@@ -110,6 +112,20 @@ tracks/3/keys = {
 "values": [{
 "args": [],
 "method": &"spawn"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DashAudioPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
 }]
 }
 
@@ -293,6 +309,11 @@ scale_curve = SubResource("CurveTexture_qlg0r")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
 size = Vector2(40, 42)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ur7pv"]
+random_pitch = 1.1892071
+streams_count = 1
+stream_0/stream = ExtResource("8_smehm")
+
 [node name="Player" type="CharacterBody2D" unique_id=1467826575]
 collision_layer = 0
 script = ExtResource("1_3vyb7")
@@ -404,6 +425,15 @@ drag_left_margin = 0.1
 drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 script = ExtResource("6_tuyoq")
+
+[node name="DashAudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=905195453]
+stream = SubResource("AudioStreamRandomizer_ur7pv")
+max_polyphony = 4
+
+[node name="DigLoopAudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=616612711]
+stream = ExtResource("9_ur7pv")
+volume_db = -15.0
+bus = &"Sound Effects"
 
 [connection signal="timeout" from="DashEffectSpawnTimer" to="DashEffectSpawner" method="spawn"]
 [connection signal="timeout" from="JumpHoldTimer" to="." method="stop_holding_jump"]

@@ -56,6 +56,7 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 @onready var dash_dust_effect_spawner: EffectSpawner = $DashDustEffectSpawner
 @onready var dash_effect_spawn_timer: Timer = $DashEffectSpawnTimer
 @onready var post_teleport_float_timer: Timer = $PostTeleportFloatTimer
+@onready var dig_loop_audio_player: AudioStreamPlayer2D = $DigLoopAudioPlayer
 
 
 var _jump_state: JumpState = JumpState.NONE
@@ -164,6 +165,7 @@ func stop_holding_jump() -> void:
 func enter_ground() -> void:
 	animation_player.stop()
 	animation_player.play("enter_ground")
+	dig_loop_audio_player.playing = true
 	collision_mask = IN_GROUND_COLLISION_MASK
 	out_of_ground_collision_shape.disabled = true
 	_is_in_ground = true
@@ -171,6 +173,7 @@ func enter_ground() -> void:
 func leave_ground() -> void:
 	animation_player.stop()
 	animation_player.play("leave_ground")
+	dig_loop_audio_player.playing = false
 	# Allow jumping briefly after leaving the ground.
 	coyote_timer.start()
 	collision_mask = OUT_OF_GROUND_COLLISION_MASK
