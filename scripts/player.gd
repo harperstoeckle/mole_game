@@ -34,8 +34,8 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 ## We must be moving at least this fast to enter the ground on contact.
 @export var min_speed_to_enter_ground: float = 1000
 @export var dig_speed: float = 1000
-## Vertical speed is multiplied by this when exiting ground vertically.
-@export var leave_ground_vertical_speed_multiplier: float = 3.0
+## Velocity is multiplied by this when leaving the ground.
+@export var leave_ground_velocity_multiplier: Vector2 = Vector2(0.1, 5.5)
 ## Maximum angle between surface normal and negative entry direction that ground can be entered.
 @export_range(0, 360, 0.1, "radians_as_degrees") var max_dig_angle: float = PI / 4
 
@@ -187,7 +187,7 @@ func leave_ground() -> void:
 	out_of_ground_collision_shape.disabled = false
 	_is_in_ground = false
 	# When exiting the ground horizontally, treat it like an extended dash. Vertically, allow it to give the player some speed.
-	velocity = Vector2(get_target_x_speed(), velocity.y * leave_ground_vertical_speed_multiplier)
+	velocity *= leave_ground_velocity_multiplier
 
 func has_coyote_time() -> bool:
 	return coyote_timer.time_left > 0
