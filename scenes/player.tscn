@@ -9,7 +9,9 @@
 [ext_resource type="Script" uid="uid://b8o0tjk6qbgwg" path="res://scripts/shake_camera_2d.gd" id="6_tuyoq"]
 [ext_resource type="AudioStream" uid="uid://d28ca0uefaldg" path="res://audio/dash.ogg" id="8_smehm"]
 [ext_resource type="AudioStream" uid="uid://ducr5a1pl2o2o" path="res://audio/dig_loop.ogg" id="9_ur7pv"]
-[ext_resource type="AudioStream" uid="uid://dwr7y57f4ihq7" path="res://audio/step_dirt.ogg" id="10_y4r1p"]
+[ext_resource type="AudioStream" uid="uid://bi0eakyn2t0te" path="res://audio/step_0.ogg" id="10_3v2ag"]
+[ext_resource type="AudioStream" uid="uid://bjjmve12yesye" path="res://audio/step_1.ogg" id="11_jej6c"]
+[ext_resource type="AudioStream" uid="uid://bbk5wg7kghdgc" path="res://audio/step_2.ogg" id="12_f1ej7"]
 
 [sub_resource type="Curve" id="Curve_3vyb7"]
 _limits = [0.0, 1.0, -1000.0, 3000.0]
@@ -414,14 +416,16 @@ scale_curve = SubResource("CurveTexture_qlg0r")
 size = Vector2(40, 42)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ur7pv"]
-random_pitch = 1.1892071
+random_pitch = 1.587401
 streams_count = 1
 stream_0/stream = ExtResource("8_smehm")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_d2wvv"]
 random_pitch = 1.1892071
-streams_count = 1
-stream_0/stream = ExtResource("10_y4r1p")
+streams_count = 3
+stream_0/stream = ExtResource("10_3v2ag")
+stream_1/stream = ExtResource("11_jej6c")
+stream_2/stream = ExtResource("12_f1ej7")
 
 [node name="Player" type="CharacterBody2D" unique_id=1467826575]
 collision_layer = 0
@@ -540,6 +544,7 @@ script = ExtResource("6_tuyoq")
 
 [node name="DashAudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=905195453]
 stream = SubResource("AudioStreamRandomizer_ur7pv")
+volume_db = 8.738
 max_polyphony = 4
 
 [node name="DigLoopAudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=616612711]
@@ -548,7 +553,7 @@ bus = &"Sound Effects"
 
 [node name="StepAudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=1300445178]
 stream = SubResource("AudioStreamRandomizer_d2wvv")
-pitch_scale = 0.5
+volume_db = -7.0
 max_polyphony = 4
 
 [connection signal="timeout" from="DashEffectSpawnTimer" to="DashEffectSpawner" method="spawn"]
