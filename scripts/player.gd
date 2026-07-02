@@ -186,6 +186,7 @@ func leave_ground() -> void:
 	collision_mask = OUT_OF_GROUND_COLLISION_MASK
 	out_of_ground_collision_shape.disabled = false
 	_is_in_ground = false
+	_has_dashed_in_air = false
 	# When exiting the ground horizontally, treat it like an extended dash. Vertically, allow it to give the player some speed.
 	velocity *= leave_ground_velocity_multiplier
 
