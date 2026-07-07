@@ -89,69 +89,119 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.91764706, 0.87058824, 0.827451, 0.92941177)
 
-[node name="HBoxContainer" type="VBoxContainer" parent="UI/Menu" unique_id=383943591]
+[node name="Pages" type="Control" parent="UI/Menu" unique_id=31449767]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseMenuPage" type="VBoxContainer" parent="UI/Menu/Pages" unique_id=383943591]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 128.0
-offset_top = -140.0
-offset_right = 300.0
-offset_bottom = 140.0
+offset_left = 68.0
+offset_top = -134.0
+offset_right = 240.0
+offset_bottom = 146.0
 grow_vertical = 2
 theme_override_constants/separation = 20
 
-[node name="PlayButton" type="Label" parent="UI/Menu/HBoxContainer" unique_id=1543650865]
+[node name="PlayButton" type="Label" parent="UI/Menu/Pages/PauseMenuPage" unique_id=1543650865]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 0
 theme_type_variation = &"Label_MainMenuButton_normal"
 text = "PLAY"
 
-[node name="ButtonComponent" type="Node" parent="UI/Menu/HBoxContainer/PlayButton" unique_id=1459886119]
+[node name="ButtonComponent" type="Node" parent="UI/Menu/Pages/PauseMenuPage/PlayButton" unique_id=1459886119]
 script = ExtResource("4_jyhfs")
 theme_type_variation_base = "Label_MainMenuButton"
 metadata/_custom_type_script = "uid://dej0oalrx13qv"
 
-[node name="ResumeButton" type="Label" parent="UI/Menu/HBoxContainer" unique_id=1796020807]
+[node name="ResumeButton" type="Label" parent="UI/Menu/Pages/PauseMenuPage" unique_id=1796020807]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 0
 theme_type_variation = &"Label_MainMenuButton_normal"
 text = "RESUME"
 
-[node name="ButtonComponent" type="Node" parent="UI/Menu/HBoxContainer/ResumeButton" unique_id=1158184877]
+[node name="ButtonComponent" type="Node" parent="UI/Menu/Pages/PauseMenuPage/ResumeButton" unique_id=1158184877]
 script = ExtResource("4_jyhfs")
 theme_type_variation_base = "Label_MainMenuButton"
 metadata/_custom_type_script = "uid://dej0oalrx13qv"
 
-[node name="CreditsButton" type="Label" parent="UI/Menu/HBoxContainer" unique_id=948450430]
+[node name="CreditsButton" type="Label" parent="UI/Menu/Pages/PauseMenuPage" unique_id=948450430]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 0
 theme_type_variation = &"Label_MainMenuButton_normal"
 text = "CREDITS"
 
-[node name="ButtonComponent" type="Node" parent="UI/Menu/HBoxContainer/CreditsButton" unique_id=443607469]
+[node name="ButtonComponent" type="Node" parent="UI/Menu/Pages/PauseMenuPage/CreditsButton" unique_id=443607469]
 script = ExtResource("4_jyhfs")
 theme_type_variation_base = "Label_MainMenuButton"
 metadata/_custom_type_script = "uid://dej0oalrx13qv"
 
-[node name="QuitButton" type="Label" parent="UI/Menu/HBoxContainer" unique_id=1534503658]
+[node name="QuitButton" type="Label" parent="UI/Menu/Pages/PauseMenuPage" unique_id=1534503658]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 0
 theme_type_variation = &"Label_MainMenuButton_normal"
 text = "QUIT"
 
-[node name="ButtonComponent" type="Node" parent="UI/Menu/HBoxContainer/QuitButton" unique_id=1928014966]
+[node name="ButtonComponent" type="Node" parent="UI/Menu/Pages/PauseMenuPage/QuitButton" unique_id=1928014966]
 script = ExtResource("4_jyhfs")
 theme_type_variation_base = "Label_MainMenuButton"
 metadata/_custom_type_script = "uid://dej0oalrx13qv"
 
-[node name="MainMenuButton" type="Label" parent="UI/Menu/HBoxContainer" unique_id=1407958095]
+[node name="MainMenuButton" type="Label" parent="UI/Menu/Pages/PauseMenuPage" unique_id=1407958095]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 0
 theme_type_variation = &"Label_MainMenuButton_normal"
 text = "MAIN MENU"
 
-[node name="ButtonComponent" type="Node" parent="UI/Menu/HBoxContainer/MainMenuButton" unique_id=376563186]
+[node name="ButtonComponent" type="Node" parent="UI/Menu/Pages/PauseMenuPage/MainMenuButton" unique_id=376563186]
+script = ExtResource("4_jyhfs")
+theme_type_variation_base = "Label_MainMenuButton"
+metadata/_custom_type_script = "uid://dej0oalrx13qv"
+
+[node name="CreditsMenuPage" type="CenterContainer" parent="UI/Menu/Pages" unique_id=1850136669]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Menu/Pages/CreditsMenuPage" unique_id=1419373480]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Spacer" type="Control" parent="UI/Menu/Pages/CreditsMenuPage/VBoxContainer" unique_id=528489709]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="CreditsLabel" type="RichTextLabel" parent="UI/Menu/Pages/CreditsMenuPage/VBoxContainer" unique_id=1659672618]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(800, 500)
+layout_mode = 2
+text = "fake credits"
+
+[node name="BackButton" type="Label" parent="UI/Menu/Pages/CreditsMenuPage/VBoxContainer" unique_id=1529288986]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 0
+theme_type_variation = &"_normal"
+text = "BACK"
+horizontal_alignment = 1
+
+[node name="ButtonComponent" type="Node" parent="UI/Menu/Pages/CreditsMenuPage/VBoxContainer/BackButton" unique_id=1665098717]
 script = ExtResource("4_jyhfs")
 theme_type_variation_base = "Label_MainMenuButton"
 metadata/_custom_type_script = "uid://dej0oalrx13qv"
@@ -163,7 +213,9 @@ offset_right = 1188.0
 offset_bottom = 1540.9995
 color = Color(0.2784314, 0.20784314, 0.16470589, 1)
 
-[connection signal="pressed" from="UI/Menu/HBoxContainer/PlayButton/ButtonComponent" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="UI/Menu/HBoxContainer/ResumeButton/ButtonComponent" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="UI/Menu/HBoxContainer/QuitButton/ButtonComponent" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="UI/Menu/HBoxContainer/MainMenuButton/ButtonComponent" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="UI/Menu/Pages/PauseMenuPage/PlayButton/ButtonComponent" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="UI/Menu/Pages/PauseMenuPage/ResumeButton/ButtonComponent" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="UI/Menu/Pages/PauseMenuPage/CreditsButton/ButtonComponent" to="." method="switch_to_menu_page_with_node_path" binds= [NodePath("UI/Menu/Pages/CreditsMenuPage")]]
+[connection signal="pressed" from="UI/Menu/Pages/PauseMenuPage/QuitButton/ButtonComponent" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="UI/Menu/Pages/PauseMenuPage/MainMenuButton/ButtonComponent" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="UI/Menu/Pages/CreditsMenuPage/VBoxContainer/BackButton/ButtonComponent" to="." method="switch_to_menu_page_with_node_path" binds= [NodePath("UI/Menu/Pages/PauseMenuPage")]]

@@ -6,11 +6,15 @@ extends Node2D
 
 @onready var _level_container: Node2D = $LevelContainer
 @onready var _menu: Control = $UI/Menu
-@onready var _play_button: Label = $UI/Menu/HBoxContainer/PlayButton
-@onready var _resume_button: Label = $UI/Menu/HBoxContainer/ResumeButton
-@onready var _quit_button: Label = $UI/Menu/HBoxContainer/QuitButton
-@onready var _main_menu_button: Label = $UI/Menu/HBoxContainer/MainMenuButton
+@onready var _play_button: Label = %PlayButton
+@onready var _resume_button: Label = %ResumeButton
+@onready var _quit_button: Label = %QuitButton
+@onready var _main_menu_button: Label = %MainMenuButton
 @onready var _ui_animation_player: AnimationPlayer = $UIAnimationPlayer
+
+@onready var _menu_pages_parent: Control = %Pages
+@onready var _pause_menu_page: VBoxContainer = %PauseMenuPage
+@onready var _credits_label: RichTextLabel = %CreditsLabel
 
 
 var _level: Node = null
@@ -19,12 +23,22 @@ var _level: Node = null
 func _ready() -> void:
 	_update_game_pause()
 	_update_menu_buttons()
+	switch_to_menu_page(_pause_menu_page)
+
+	var credits_file := FileAccess.open("res://credits.txt", FileAccess.READ)
+	if credits_file:
+		_credits_label.text = credits_file.get_as_text()
 
 func _unhandled_input(e: InputEvent) -> void:
 	# Don't allow toggling the menu if we're not in a level (in the main menu).
-	if e.is_action_pressed("pause") and _level and not _is_in_transition():
-		_menu.visible = not _menu.visible
-		_update_game_pause()
+	if e.is_action_pressed("pause") and not _is_in_transition():
+		if _pause_menu_page.visible:
+			if _level:
+				_menu.visible = not _menu.visible
+				_update_game_pause()
+		else:
+			# Go back to the main pause menu if we're in a different menu.
+			switch_to_menu_page(_pause_menu_page)
 
 # Load a level from a `PackedScene` and play a transition animation.
 func load_level_from_packed(level_packed_scene: PackedScene) -> void:
@@ -33,6 +47,16 @@ func load_level_from_packed(level_packed_scene: PackedScene) -> void:
 	_menu.visible = not _level
 
 	_do_in_transition(func() -> void: _set_level(level))
+
+func switch_to_menu_page(new_page: Control) -> void:
+	for page in _menu_pages_parent.get_children():
+		page.hide()
+
+	new_page.show()
+
+# Allows the page to be bound as an extra call argument when connecting a button press signal.
+func switch_to_menu_page_with_node_path(new_page_path: NodePath) -> void:
+	switch_to_menu_page(get_node(new_page_path))
 
 # Set the level immediately.
 func _set_level(level: Node) -> void:

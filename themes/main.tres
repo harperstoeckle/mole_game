@@ -1,5 +1,18 @@
 [gd_resource type="Theme" format=3 uid="uid://dv1b542yhcjo7"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1id7b"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.21568628, 0.43529412, 0.52156866, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1id7b"]
+
 [resource]
 Label_MainMenuButton_hovered/base_type = &"Label"
 Label_MainMenuButton_hovered/colors/font_color = Color(0.8901961, 0.7372549, 0.18039216, 1)
@@ -14,3 +27,6 @@ Label_MainMenuButton_normal/constants/shadow_offset_x = 2
 Label_MainMenuButton_normal/constants/shadow_offset_y = 2
 Label_MainMenuButton_normal/constants/shadow_outline_size = 5
 Label_MainMenuButton_normal/font_sizes/font_size = 32
+RichTextLabel/colors/default_color = Color(0.8901961, 0.7372549, 0.18039216, 1)
+RichTextLabel/styles/normal = SubResource("StyleBoxFlat_1id7b")
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_1id7b")
