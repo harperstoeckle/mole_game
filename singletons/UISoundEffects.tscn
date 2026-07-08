@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cv6a8uo3jrhjj"]
+
+[ext_resource type="Script" uid="uid://dryhcbtr0fw7d" path="res://scripts/ui_sound_effects.gd" id="1_f1vct"]
+[ext_resource type="AudioStream" uid="uid://mc5kgksgue1t" path="res://audio/ui_menu_click.ogg" id="2_4bnnc"]
+[ext_resource type="AudioStream" uid="uid://vjg0rc02ar6b" path="res://audio/ui_menu_mouse_over.ogg" id="3_dcv62"]
+
+[node name="UiSoundEffects" type="Node" unique_id=1305332444]
+script = ExtResource("1_f1vct")
+sound_effect_name_to_audio_stream = Dictionary[String, AudioStream]({
+"ui_menu_click": ExtResource("2_4bnnc"),
+"ui_menu_mouse_over": ExtResource("3_dcv62")
+})

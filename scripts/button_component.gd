@@ -32,6 +32,7 @@ func _ready() -> void:
 
 func _on_control_mouse_entered() -> void:
 	_is_hovered = true
+	UiSoundEffects.play("ui_menu_mouse_over")
 	_update_appearance()
 
 func _on_control_mouse_exited() -> void:
@@ -48,6 +49,7 @@ func _on_control_gui_input(event: InputEvent) -> void:
 			_is_pressed = false
 			if _is_hovered:
 				pressed.emit()
+				UiSoundEffects.play("ui_menu_click")
 
 func _update_appearance() -> void:
 	if not _control: return
