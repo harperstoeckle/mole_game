@@ -9,6 +9,8 @@ signal pressed()
 
 ## "_normal" and "_hovered" will be appended to this to get the type variations with
 @export var theme_type_variation_base: String = ""
+## If true, the [signal pressed] signal will be emitted when the mouse is released rather than when it is first pressed down.
+@export var press_on_mouse_up: bool = false
 
 
 @onready var _control: Control = get_parent() as Control
@@ -45,11 +47,14 @@ func _on_control_gui_input(event: InputEvent) -> void:
 	if event.button_index == MOUSE_BUTTON_LEFT and not event.is_echo():
 		if event.is_pressed():
 			_is_pressed = true
+			if not press_on_mouse_up: _press()
 		elif event.is_released():
 			_is_pressed = false
-			if _is_hovered:
-				pressed.emit()
-				UiSoundEffects.play("ui_menu_click")
+			if _is_hovered and press_on_mouse_up: _press()
+
+func _press() -> void:
+	pressed.emit()
+	UiSoundEffects.play("ui_menu_click")
 
 func _update_appearance() -> void:
 	if not _control: return
