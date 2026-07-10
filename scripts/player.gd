@@ -85,8 +85,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			if not is_on_floor():
 				_has_dashed_in_air = true
 	elif event.is_action_pressed("teleport"):
-		global_position = get_global_mouse_position()
-		post_teleport_float_timer.start()
+		if OS.has_feature("dev"):
+			global_position = get_global_mouse_position()
+			post_teleport_float_timer.start()
 
 func _process(_delta: float) -> void:
 	# Play the dash effect thing when moving fast enough to enter the ground.
