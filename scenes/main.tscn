@@ -197,7 +197,7 @@ text = "fake credits"
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 0
-theme_type_variation = &"_normal"
+theme_type_variation = &"Label_MainMenuButton_normal"
 text = "BACK"
 horizontal_alignment = 1
 
