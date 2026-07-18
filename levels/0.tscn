@@ -2,6 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://d3jakuohgew1r" path="res://resources/wall_tile_set.tres" id="1_o6lbg"]
 [ext_resource type="PackedScene" uid="uid://0bpyja0y2k2p" path="res://scenes/player.tscn" id="2_op5ms"]
+[ext_resource type="Texture2D" uid="uid://dya5g5kvnr37u" path="res://textures/in_world_prompts.png" id="3_op5ms"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o6lbg"]
 
@@ -39,3 +40,23 @@ position = Vector2(1571, -3637)
 
 [node name="DevTeleportPoint4" type="Node2D" parent="DevTeleportPoints" unique_id=1504701789 groups=["dev_teleport_point"]]
 position = Vector2(1913, -3040)
+
+[node name="InWorldPrompts" type="Node2D" parent="." unique_id=676068439]
+
+[node name="InWorldPrompts2" type="Sprite2D" parent="InWorldPrompts" unique_id=1594497656]
+position = Vector2(295, 145)
+texture = ExtResource("3_op5ms")
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 98.896965)
+
+[node name="InWorldPrompts" type="Sprite2D" parent="InWorldPrompts" unique_id=186998479]
+position = Vector2(4473, -1142)
+texture = ExtResource("3_op5ms")
+region_enabled = true
+region_rect = Rect2(0, 122.68198, 256, 117.497894)
+
+[node name="InWorldPrompts3" type="Sprite2D" parent="InWorldPrompts" unique_id=1727390172]
+position = Vector2(1381, 52)
+texture = ExtResource("3_op5ms")
+region_enabled = true
+region_rect = Rect2(0, 247.94873, 256, 91.58972)
