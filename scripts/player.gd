@@ -66,6 +66,13 @@ var _has_dashed_in_air := false
 var _is_in_ground := false
 var _facing_direction := 1.0
 
+var _dev_teleport_points: Array[Node2D] = []
+var _cur_dev_teleport_point_idx: int = 0
+
+
+func _ready() -> void:
+	for node in get_tree().get_nodes_in_group("dev_teleport_point"):
+		if node is Node2D: _dev_teleport_points.push_back(node)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
@@ -84,10 +91,19 @@ func _unhandled_input(event: InputEvent) -> void:
 			dash_timer.start()
 			if not is_on_floor():
 				_has_dashed_in_air = true
-	elif event.is_action_pressed("teleport"):
-		if OS.has_feature("dev"):
-			global_position = get_global_mouse_position()
-			post_teleport_float_timer.start()
+
+	if OS.has_feature("dev"):
+		if event.is_action_pressed("teleport"):
+				global_position = get_global_mouse_position()
+				post_teleport_float_timer.start()
+		elif event.is_action_pressed("next_dev_teleport_point"):
+			_cur_dev_teleport_point_idx = wrapi(_cur_dev_teleport_point_idx + 1, 0, _dev_teleport_points.size())
+			if _cur_dev_teleport_point_idx < _dev_teleport_points.size():
+				global_position = _dev_teleport_points[_cur_dev_teleport_point_idx].global_position
+		elif event.is_action_pressed("prev_dev_teleport_point"):
+			_cur_dev_teleport_point_idx = wrapi(_cur_dev_teleport_point_idx - 1, 0, _dev_teleport_points.size())
+			if _cur_dev_teleport_point_idx < _dev_teleport_points.size():
+				global_position = _dev_teleport_points[_cur_dev_teleport_point_idx].global_position
 
 func _process(_delta: float) -> void:
 	# Play the dash effect thing when moving fast enough to enter the ground.
