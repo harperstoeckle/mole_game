@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://bbk5wg7kghdgc" path="res://audio/step_2.ogg" id="12_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://w1sthtov3q18" path="res://audio/enter_ground.ogg" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://2da7qcnlq0tk" path="res://audio/exit_ground.ogg" id="14_oprun"]
+[ext_resource type="AudioStream" uid="uid://1jl82uoddhud" path="res://audio/reflect.ogg" id="16_a8ls1"]
 
 [sub_resource type="Curve" id="Curve_3vyb7"]
 _limits = [0.0, 1.0, -1000.0, 3000.0]
@@ -389,6 +390,20 @@ tracks/1/keys = {
 "method": &"shake"
 }]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ReflectAudioPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g2els"]
 _data = {
@@ -662,6 +677,9 @@ stream = ExtResource("13_f1ej7")
 
 [node name="ExitGroundAudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=1322401122]
 stream = SubResource("AudioStreamRandomizer_f1ej7")
+
+[node name="ReflectAudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=56296644]
+stream = ExtResource("16_a8ls1")
 
 [connection signal="timeout" from="DashEffectSpawnTimer" to="DashEffectSpawner" method="spawn"]
 [connection signal="timeout" from="JumpHoldTimer" to="." method="stop_holding_jump"]
