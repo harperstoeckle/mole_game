@@ -80,8 +80,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		try_jump()
 	elif event.is_action_released("jump"):
 		stop_holding_jump()
-	elif event.is_action_pressed("ui_down"):
-		enter_ground()
 	elif event.is_action_pressed("dash"):
 		if not _is_in_ground and (not _has_dashed_in_air or is_on_floor()):
 			velocity = Vector2.RIGHT * _facing_direction * dash_speed
