@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://cupkenf64y7u4"]
+
+[ext_resource type="Script" uid="uid://bcd88sx5aoxe0" path="res://scripts/editor_visibility_component.gd" id="1_8rbwo"]
+[ext_resource type="Texture2D" uid="uid://dc3elu3evbtnr" path="res://textures/reflect_ring.png" id="2_8xlyy"]
+
+[sub_resource type="Animation" id="Animation_khtan"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ReflectRing:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ReflectRing:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8rbwo"]
+resource_name = "expand_ring"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ReflectRing:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ReflectRing:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.13333334, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8xlyy"]
+_data = {
+&"RESET": SubResource("Animation_khtan"),
+&"expand_ring": SubResource("Animation_8rbwo")
+}
+
+[node name="PlayerReflect" type="Node2D" unique_id=1606378899]
+
+[node name="Background" type="ColorRect" parent="." unique_id=1969176309]
+offset_left = -191.0
+offset_top = -174.0
+offset_right = 191.0
+offset_bottom = 165.0
+color = Color(0, 0, 0, 1)
+
+[node name="EditorVisibilityComponent" type="Node" parent="Background" unique_id=798674532]
+script = ExtResource("1_8rbwo")
+visible_in_game = false
+
+[node name="ReflectRing" type="Sprite2D" parent="." unique_id=337953455]
+texture = ExtResource("2_8xlyy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2120715076]
+libraries/ = SubResource("AnimationLibrary_8xlyy")
+autoplay = &"expand_ring"
+
+[node name="Node2D" type="Node2D" parent="." unique_id=2014848389]

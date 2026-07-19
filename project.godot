@@ -105,5 +105,6 @@ prev_dev_teleport_point={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 environment/defaults/default_clear_color=Color(0.91764706, 0.87058824, 0.827451, 1)

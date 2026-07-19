@@ -58,6 +58,7 @@ const IN_GROUND_COLLISION_MASK: int = 0b10
 @onready var post_teleport_float_timer: Timer = $PostTeleportFloatTimer
 @onready var dig_loop_audio_player: AudioStreamPlayer2D = $DigLoopAudioPlayer
 @onready var walk_animation_player: AnimationPlayer = $WalkAnimationPlayer
+@onready var reflect_effect_spawner: EffectSpawner = $ReflectEffectSpawner
 
 
 var _jump_state: JumpState = JumpState.NONE
@@ -162,6 +163,8 @@ func _physics_process(delta: float) -> void:
 		if _is_in_ground:
 			# Reflect when colliding while underground.
 			velocity = prev_velocity.bounce(c.get_normal())
+			reflect_effect_spawner.global_position = c.get_position()
+			animation_player.play("reflect")
 		else:
 			# Only enter the ground if we are moving fast enough, we are colliding with non-reflective ground,
 			# and our angle of entry isn't too shallow.
