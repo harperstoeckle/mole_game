@@ -13,6 +13,8 @@ config_version=5
 config/name="mole_game"
 run/main_scene="uid://d3fdoti751ujg"
 config/features=PackedStringArray("4.7", "Forward Plus")
+boot_splash/bg_color=Color(0.91764706, 0.87058824, 0.827451, 1)
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]
